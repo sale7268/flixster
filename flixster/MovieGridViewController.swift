@@ -25,7 +25,7 @@ class MovieGridViewController: UIViewController, UICollectionViewDataSource, UIC
         layout.minimumLineSpacing = 4
         layout.minimumInteritemSpacing = 4
         
-        let width = (view.frame.size.width - layout.minimumInteritemSpacing * 2) / 3
+        let width = (view.frame.size.width - layout.minimumInteritemSpacing * 3) / 3
         layout.itemSize = CGSize(width: width, height: width * 3 / 2)
         
         
@@ -69,6 +69,18 @@ class MovieGridViewController: UIViewController, UICollectionViewDataSource, UIC
         cell.posterView.af.setImage(withURL: posterUrl!)
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let movie = movies[indexPath.row]
+        print(movie)
+        
+        //Pass the selected movie to the details view controller
+        if let mvc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MovieDetailsViewController") as? MovieDetailsViewController {
+              mvc.movie = movie
+              self.present(mvc, animated: true, completion: nil)
+            }
     }
 }
 
